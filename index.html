@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Make an Application in Google AI Studio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Inter Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              900: '#0f172a',
+            }
+          },
+          boxShadow: {
+            'glow': '0 0 35px -5px rgba(59, 130, 246, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.08); }
+    }
+    .glow-blob {
+      animation: pulseGlow 8s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen relative flex flex-col justify-between selection:bg-blue-500 selection:text-white antialiased overflow-x-hidden">
+
+  <!-- Ambient background glow elements -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+    <div class="glow-blob absolute -top-40 -left-20 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px]"></div>
+    <div class="glow-blob absolute top-1/3 -right-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-[140px]" style="animation-delay: 3s;"></div>
+    <div class="glow-blob absolute -bottom-20 left-1/3 w-80 h-80 bg-cyan-600/15 rounded-full blur-[100px]" style="animation-delay: 5s;"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b12_1px,transparent_1px),linear-gradient(to_bottom,#1e293b12_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+  </div>
+
+  <!-- Top Navigation Header -->
+  <header class="w-full border-b border-slate-800/80 backdrop-blur-md bg-slate-950/60 sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-cyan-400 p-[1px] flex items-center justify-center shadow-lg shadow-blue-500/20">
+          <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center">
+            <svg class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+        </div>
+        <div>
+          <span class="font-bold text-slate-100 text-sm tracking-wide">ZoomMate</span>
+          <span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 ml-1.5 font-medium">Session Hub</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="https://us06web.zoom.us/j/84416956411?pwd=SbhCkMT274OMsK0TxGb78VVxzjoP9t.1"
+           target="_blank"
+           rel="noopener"
+           class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs sm:text-sm transition-all duration-200 shadow-md shadow-blue-600/30">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4.5 4.5A2.5 2.5 0 0 0 2 7v10a2.5 2.5 0 0 0 2.5 2.5h10a2.5 2.5 0 0 0 2.5-2.5v-2.2l4.2 2.8A1 1 0 0 0 23 16.8V7.2a1 1 0 0 0-1.8-.8L17 9.2V7a2.5 2.5 0 0 0-2.5-2.5h-10z"/>
+          </svg>
+          Join Zoom
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full flex-1">
+    
+    <!-- Hero Header / Workshop Tag -->
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-700/80 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+        <span>Interactive Live Workshop</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        How to make an Application in <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-teal-300">Google AI Studio</span>
+      </h1>
+      
+      <p class="mt-4 text-slate-400 text-sm sm:text-base leading-relaxed">
+        Join us for a step-by-step hands-on guide exploring Google AI Studio, prompt engineering, system instructions, and shipping complete production-ready AI applications.
+      </p>
+    </div>
+
+    <!-- Countdown Timer Card -->
+    <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-8 backdrop-blur-md shadow-xl text-center">
+      <div class="text-xs uppercase tracking-widest text-slate-400 font-semibold mb-3 flex items-center justify-center gap-2">
+        <svg class="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>Event Countdown</span>
+      </div>
+      <div id="countdown" class="grid grid-cols-4 gap-2 sm:gap-4 max-w-md mx-auto">
+        <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5">
+          <span id="days" class="block text-xl sm:text-2xl font-bold text-white tracking-wider">--</span>
+          <span class="text-[10px] sm:text-xs text-slate-400 font-medium">Days</span>
+        </div>
+        <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5">
+          <span id="hours" class="block text-xl sm:text-2xl font-bold text-white tracking-wider">--</span>
+          <span class="text-[10px] sm:text-xs text-slate-400 font-medium">Hours</span>
+        </div>
+        <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5">
+          <span id="minutes" class="block text-xl sm:text-2xl font-bold text-white tracking-wider">--</span>
+          <span class="text-[10px] sm:text-xs text-slate-400 font-medium">Mins</span>
+        </div>
+        <div class="bg-slate-950/80 border border-slate-800/80 rounded-xl p-2.5">
+          <span id="seconds" class="block text-xl sm:text-2xl font-bold text-blue-400 tracking-wider">--</span>
+          <span class="text-[10px] sm:text-xs text-slate-400 font-medium">Secs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Primary Invitation Card -->
+    <div class="bg-slate-900/80 border border-slate-700/60 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Schedule & Time Badge -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+        <div class="flex items-start gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shrink-0 text-blue-400 mt-0.5">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Date & Time</div>
+            <div class="text-base sm:text-lg font-bold text-white">Wednesday, Oct 28, 2026</div>
+            <div class="text-sm text-blue-400 font-medium">6:00 PM – 7:30 PM (Pacific Time)</div>
+          </div>
+        </div>
+
+        <div class="flex sm:flex-col items-center sm:items-end justify-between bg-slate-950/60 sm:bg-transparent p-3 sm:p-0 rounded-xl border sm:border-0 border-slate-800">
+          <span class="text-xs text-slate-400 font-medium">Platform</span>
+          <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-md bg-sky-950/70 text-sky-300 border border-sky-800/60">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M4.5 4.5A2.5 2.5 0 0 0 2 7v10a2.5 2.5 0 0 0 2.5 2.5h10a2.5 2.5 0 0 0 2.5-2.5v-2.2l4.2 2.8A1 1 0 0 0 23 16.8V7.2a1 1 0 0 0-1.8-.8L17 9.2V7a2.5 2.5 0 0 0-2.5-2.5h-10z"/>
+            </svg>
+            Zoom Video
+          </span>
+        </div>
+      </div>
+
+      <!-- Add to Calendar Section -->
+      <div class="my-6">
+        <h2 class="text-xs uppercase tracking-wider font-semibold text-slate-400 mb-3 flex items-center gap-2">
+          <span>Add To Your Calendar</span>
+          <span class="h-px flex-1 bg-slate-800"></span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- Google Calendar -->
+          <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=How%20to%20make%20an%20Application%20in%20Google%20AI%20Studio&dates=20261029T010000Z/20261029T023000Z&details=Zoom%20Meeting%0AJoin%20Link%3A%20https%3A%2F%2Fus06web.zoom.us%2Fj%2F84416956411%3Fpwd%3DSbhCkMT274OMsK0TxGb78VVxzjoP9t.1%0AMeeting%20ID%3A%20844%201695%206411%0APasscode%3A%20839658&location=https%3A%2F%2Fus06web.zoom.us%2Fj%2F84416956411%3Fpwd%3DSbhCkMT274OMsK0TxGb78VVxzjoP9t.1"
+             target="_blank" rel="noopener"
+             class="group flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/80 hover:border-slate-600 text-slate-200 hover:text-white font-medium text-sm transition-all duration-200">
+            <svg class="w-4 h-4 text-red-400 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+            </svg>
+            <span>Google Calendar</span>
+          </a>
+
+          <!-- Outlook Calendar -->
+          <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=How%20to%20make%20an%20Application%20in%20Google%20AI%20Studio&startdt=2026-10-29T01:00:00Z&enddt=2026-10-29T02:30:00Z&body=Zoom%20Meeting%0AJoin%20Link%3A%20https%3A%2F%2Fus06web.zoom.us%2Fj%2F84416956411%3Fpwd%3DSbhCkMT274OMsK0TxGb78VVxzjoP9t.1%0AMeeting%20ID%3A%20844%201695%206411%0APasscode%3A%20839658&location=https%3A%2F%2Fus06web.zoom.us%2Fj%2F84416956411%3Fpwd%3DSbhCkMT274OMsK0TxGb78VVxzjoP9t.1&path=/calendar/action/compose&rru=addevent"
+             target="_blank" rel="noopener"
+             class="group flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/80 hover:border-slate-600 text-slate-200 hover:text-white font-medium text-sm transition-all duration-200">
+            <svg class="w-4 h-4 text-blue-400 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2v-5h2v5zm0-7h-2V7h2v2.5z"/>
+            </svg>
+            <span>Outlook Calendar</span>
+          </a>
+
+          <!-- Apple / iCal (.ics) -->
+          <a href="data:text/calendar;charset=utf8,BEGIN%3AVCALENDAR%0AVERSION%3A2.0%0APRODID%3A-%2F%2FZoomMate%2F%2FMeeting%2F%2FEN%0ABEGIN%3AVEVENT%0AUID%3A84416956411%40zoom.us%0ADTSTAMP%3A20261029T010000Z%0ADTSTART%3A20261029T010000Z%0ADTEND%3A20261029T023000Z%0ASUMMARY%3AHow%20to%20make%20an%20Application%20in%20Google%20AI%20Studio%0ADESCRIPTION%3AZoom%20Meeting%5CnJoin%20Link%3A%20https%3A%2F%2Fus06web.zoom.us%2Fj%2F84416956411%3Fpwd%3DSbhCkMT274OMsK0TxGb78VVxzjoP9t.1%5CnMeeting%20ID%3A%20844%201695%206411%5CnPasscode%3A%20839658%0ALOCATION%3Ahttps%3A%2F%2Fus06web.zoom.us%2Fj%2F84416956411%3Fpwd%3DSbhCkMT274OMsK0TxGb78VVxzjoP9t.1%0AEND%3AVEVENT%0AEND%3AVCALENDAR"
+             download="Google-AI-Studio-Workshop.ics"
+             class="group flex items-center justify-center gap-2.5 px-4 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/80 hover:border-slate-600 text-slate-200 hover:text-white font-medium text-sm transition-all duration-200">
+            <svg class="w-4 h-4 text-emerald-400 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            <span>Apple / iCal (.ics)</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Credentials & Join Link Display -->
+      <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 sm:p-5 mt-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Access Credentials</span>
+          </div>
+
+          <button onclick="copyToClipboard('https://us06web.zoom.us/j/84416956411?pwd=SbhCkMT274OMsK0TxGb78VVxzjoP9t.1', 'Zoom Link')"
+                  type="button"
+                  class="self-start sm:self-auto text-xs font-medium text-blue-400 hover:text-blue-300 inline-flex items-center gap-1.5 transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
+            <span>Copy Full Invitation</span>
+          </button>
+        </div>
+
+        <!-- Meeting ID & Passcode grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div>
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider">Meeting ID</div>
+              <div class="text-sm font-semibold text-white tracking-wide font-mono">844 1695 6411</div>
+            </div>
+            <button onclick="copyToClipboard('84416956411', 'Meeting ID')" class="p-2 text-slate-400 hover:text-blue-400 rounded-lg hover:bg-slate-800 transition-colors" title="Copy Meeting ID">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div>
+              <div class="text-[11px] text-slate-400 uppercase tracking-wider">Passcode</div>
+              <div class="text-sm font-semibold text-white tracking-wider font-mono">839658</div>
+            </div>
+            <button onclick="copyToClipboard('839658', 'Passcode')" class="p-2 text-slate-400 hover:text-blue-400 rounded-lg hover:bg-slate-800 transition-colors" title="Copy Passcode">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Join Direct Link row -->
+        <div class="pt-2">
+          <div class="text-[11px] text-slate-400 uppercase tracking-wider mb-1.5">Direct URL</div>
+          <div class="flex items-center gap-2 bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-xs text-slate-300 font-mono truncate flex-1 select-all">
+              https://us06web.zoom.us/j/84416956411?pwd=SbhCkMT274OMsK0TxGb78VVxzjoP9t.1
+            </span>
+            <button onclick="copyToClipboard('https://us06web.zoom.us/j/84416956411?pwd=SbhCkMT274OMsK0TxGb78VVxzjoP9t.1', 'Zoom Link')"
+                    class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition-colors shrink-0">
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Large Join Button CTA -->
+      <div class="mt-6 pt-2">
+        <a href="https://us06web.zoom.us/j/84416956411?pwd=SbhCkMT274OMsK0TxGb78VVxzjoP9t.1"
+           target="_blank" rel="noopener"
+           class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-center text-base sm:text-lg flex items-center justify-center gap-3 shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M4.5 4.5A2.5 2.5 0 0 0 2 7v10a2.5 2.5 0 0 0 2.5 2.5h10a2.5 2.5 0 0 0 2.5-2.5v-2.2l4.2 2.8A1 1 0 0 0 23 16.8V7.2a1 1 0 0 0-1.8-.8L17 9.2V7a2.5 2.5 0 0 0-2.5-2.5h-10z"/>
+          </svg>
+          <span>Launch Zoom Meeting Room</span>
+          <svg class="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- What You'll Learn / Agenda Preview -->
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="p-5 rounded-2xl bg-slate-900/50 border border-slate-800">
+        <div class="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold mb-3">1</div>
+        <h3 class="font-semibold text-white text-sm mb-1.5">Getting Started in Studio</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Understanding the interface, model parameters (Gemini Pro/Flash), tokens, and temperature settings.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-900/50 border border-slate-800">
+        <div class="w-9 h-9 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold mb-3">2</div>
+        <h3 class="font-semibold text-white text-sm mb-1.5">System Prompt Engineering</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Crafting robust system instructions, few-shot examples, and JSON schema outputs for reliability.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-900/50 border border-slate-800">
+        <div class="w-9 h-9 rounded-lg bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold mb-3">3</div>
+        <h3 class="font-semibold text-white text-sm mb-1.5">Export & Deploy</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">Exporting client-ready code in Python, JavaScript, and cURL to embed within your production apps.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Toast Notification element -->
+  <div id="toast" class="fixed bottom-6 right-6 transform translate-y-24 opacity-0 transition-all duration-300 z-50 flex items-center gap-2.5 bg-slate-900 border border-blue-500/40 text-slate-100 px-4 py-3 rounded-xl shadow-2xl">
+    <div class="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <span id="toast-message" class="text-xs sm:text-sm font-medium">Copied to clipboard!</span>
+  </div>
+
+  <!-- Page Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/80 py-6 mt-12">
+    <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>Google AI Studio Workshop &bull; Hosted via Zoom</div>
+      <div class="text-slate-600">Need assistance? Check meeting ID <span class="text-slate-400 font-mono">844 1695 6411</span></div>
+    </div>
+  </footer>
+
+  <script>
+    // Copy helper using a temporary textarea to ensure compatibility inside iframes
+    function copyToClipboard(textToCopy, label) {
+      try {
+        const textarea = document.createElement("textarea");
+        textarea.value = textToCopy;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textarea);
+
+        if (successful) {
+          showToast(label ? `${label} copied to clipboard!` : 'Copied to clipboard!');
+        } else {
+          showToast('Please copy manually');
+        }
+      } catch (err) {
+        showToast('Press Ctrl+C / Cmd+C to copy');
+      }
+    }
+
+    // Toast notification handler
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      
+      toastMessage.textContent = message;
+      clearTimeout(toastTimeout);
+      
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3000);
+    }
+
+    // Countdown Timer logic targeting Oct 28, 2026, 18:00:00 Pacific Time (UTC-7)
+    // 2026-10-29T01:00:00Z
+    const targetDate = new Date("2026-10-29T01:00:00Z").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference <= 0) {
+        document.getElementById('days').innerText = "00";
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('minutes').innerText = "00";
+        document.getElementById('seconds').innerText = "00";
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = String(days).padStart(2, '0');
+      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+    }
+
+    // Initial call and periodic tick
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
